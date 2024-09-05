@@ -30,9 +30,36 @@ from summary import app as summary_app
 # from page7 import app as page7_app
 # from streamlit_pandas_profiling import st_profile_report
 
+# Add this at the beginning of the file
+def check_password():
+    """Returns `True` if the user had the correct password."""
+
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        if st.session_state["username"] == st.secrets["username"] and st.session_state["password"] == st.secrets["password"]:
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # don't store password
+        else:
+            st.session_state["password_correct"] = False
+
+    if "password_correct" not in st.session_state:
+        # First run, show inputs for username + password.
+        st.text_input("Username", on_change=password_entered, key="username")
+        st.text_input("Password", type="password", on_change=password_entered, key="password")
+        return False
+    elif not st.session_state["password_correct"]:
+        # Password not correct, show input + error.
+        st.text_input("Username", on_change=password_entered, key="username")
+        st.text_input("Password", type="password", on_change=password_entered, key="password")
+        st.error("😕 User not known or password incorrect")
+        return False
+    else:
+        # Password correct.
+        return True
+
 PAGES = {
     "시은쌤": page6_app,
-    "예림쌤": page6_2_app,
+    "예은쌤": page6_2_app,
     "병규쌤/배니쌤": page6_3_app,
     "영민쌤": page7_app,
     "수진쌤": page7_2_app,
@@ -56,19 +83,19 @@ PAGES = {
     "이번주 출석부": summary_app
 }
 
+# Modify the main function
 def main():
     st.sidebar.title('코람데오 선생님들의 공간')
-    selection = st.sidebar.radio("Go to", list(PAGES.keys()))
     
-    page_function = PAGES[selection]
-    page_function()  # Call the app function which we'll define in each module
+    if check_password():
+        selection = st.sidebar.radio("Go to", list(PAGES.keys()))
+        page_function = PAGES[selection]
+        page_function()
+    else:
+        st.stop()  # Don't run anything past here if check_password() returns False
 
 if __name__ == "__main__":
     main()
-
-# llm.invoke(
-
-# )
 
 
 
