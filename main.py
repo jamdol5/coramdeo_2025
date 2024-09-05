@@ -33,8 +33,6 @@ from summary import app as summary_app
 # from streamlit_pandas_profiling import st_profile_report
 
 PAGES = {
-    "오늘의 성경구절": b_verse_app,
-    "주일 스몰그룹": b_study_app,
     "시은쌤": page6_app,
     "예림쌤": page6_2_app,
     "병규쌤/배니쌤": page6_3_app,
