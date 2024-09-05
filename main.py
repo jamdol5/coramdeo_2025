@@ -61,8 +61,6 @@ def check_password():
         return True
 
 PAGES = {
-    "오늘의 성경구절": b_verse_app,
-    "주일 스몰그룹": b_study_app,
     "시은쌤": page6_app,
     "예은쌤": page6_2_app,
     "병규쌤/배니쌤": page6_3_app,
