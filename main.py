@@ -36,7 +36,10 @@ def check_password():
 
     def password_entered():
         """Checks whether a password entered by the user is correct."""
-        if st.session_state["username"] == st.secrets["username"] and st.session_state["password"] == st.secrets["password"]:
+        if (
+            st.session_state["username"] == st.secrets.get("username")
+            and st.session_state["password"] == st.secrets.get("password")
+        ):
             st.session_state["password_correct"] = True
             del st.session_state["password"]  # don't store password
         else:
@@ -58,6 +61,8 @@ def check_password():
         return True
 
 PAGES = {
+    "오늘의 성경구절": b_verse_app,
+    "주일 스몰그룹": b_study_app,
     "시은쌤": page6_app,
     "예은쌤": page6_2_app,
     "병규쌤/배니쌤": page6_3_app,
@@ -96,6 +101,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# llm.invoke(
+
+# )
 
 
 
