@@ -4,8 +4,6 @@
 import streamlit as st
 import time
 # import ollama
-from b_verse import app as b_verse_app
-from b_study import app as b_study_app
 from page6 import app as page6_app
 from page6_2 import app as page6_2_app
 from page6_3 import app as page6_3_app
