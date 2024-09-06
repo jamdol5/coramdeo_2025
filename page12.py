@@ -38,62 +38,18 @@ def app():
     # Initialize the database
     db_utils.init_db()
 
-    # Define the names directly in a dictionary
-    # df = pd.read_excel(r'/Users/hyungju/Documents/Coding/Langchain/2024-2025 연락처.xlsx',sheet_name='Small Group_스몰그룹')
-
     names_dict = {
         "12학년 여자": ["김다인","박유림","박예지","안소라","이서영","조다솜","최윤서"]
     }
 
-    # ############# Cleaning dataframe ####################
-    # #Setting up a new header
-    # new_header = df.iloc[0]
-    # df.columns = new_header 
-
-    # # Drop the first four rows (rows 0 to 3)
-    # df = df.drop([0, 1, 2])
-
-    # # Keep only the first 15 columns
-    # df = df.iloc[:, :15]
-
-    # # Keep only rows up to the 24th row (since the index starts at 0, row 24 is at index 23)
-    # df = df.iloc[:18]
-
-    # # Reset the index
-    # df = df.reset_index(drop=True)
-    # ####################################################
-
-    #Upload values from dataframe
-    ####################################################
-##############################################################
     # Create the Roster dictionary dynamically
     Roster = {grade: [{"label": name, "default":False} for name in names] for grade, names in names_dict.items()}
-
-    # # Select the columns with headers
-    # seven_g1_values = df['7학년 남자'].dropna().tolist()
-    # # seven_g2_values = df['7학년여자 #2'].dropna().tolist()
-    # # seven_b_values = df['7학년 남자'].dropna().tolist()
-
-    # # Create the Roster dictionary dynamically
-    # Roster = {
-    #     "6학년 남자": [{"label": value, "default": False} for value in seven_g1_values],
-    #     # "7학년 여자 #2": [{"label": value, "default": False} for value in seven_g2_values],
-    #     # "7학년 남자": [{"label": value, "default": False} for value in seven_b_values]
-    # }
 
     # Initialize attendance tracking
     at = {grade: {} for grade in names_dict.keys()}
 
     # Create a Streamlit expander and display the values
     st.title('Student Roster')
-
-    # Example           
-    # Second row with a single column
-    # col3 = st.columns([2])
-    # with col3[0]:
-    #     with st.expander("6학년 남자"):
-    #         for item in Roster["6학년 남자"]:
-    #             at["6학년 남자"][item["label"]] = st.checkbox(item["label"], key=item["label"], value=True)
 
     for grade, students in Roster.items():
         with st.expander(grade):
