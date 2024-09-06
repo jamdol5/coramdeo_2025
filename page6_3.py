@@ -46,6 +46,11 @@ def app():
     
     Roster = {grade: [{"label": name, "default":False} for name in names] for grade, names in names_dict.items()}
     
+    # Initialize attendance tracking
+    at = {grade: {} for grade in names_dict.keys()}
+
+    # Create a Streamlit expander and display the values
+    st.title('Student Roster')
     for grade, students in Roster.items():
         with st.expander(grade):
             for student in students:
