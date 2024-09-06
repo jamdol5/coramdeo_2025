@@ -69,7 +69,7 @@ PAGES = {
     "희주쌤": page8_3_app,
     "예은쌤": page8_4_app,
     "재원쌤/태림쌤": page8_2_app,
-    "지선쌤": page9_3_app,
+    "수진쌤": page9_3_app,
     "승환쌤/우진쌤": page9_2_app,
     "진희쌤": page10_app,
     "태욱쌤/형준쌤": page10_2_app,
