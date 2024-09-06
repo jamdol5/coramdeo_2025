@@ -44,6 +44,8 @@ def app():
         "6학년 남자": ["권예준","김지훈","박시후","신준민","정라온"]
     }
     
+    Roster = {grade: [{"label": name, "default":False} for name in names] for grade, names in names_dict.items()}
+    
     for grade, students in Roster.items():
         with st.expander(grade):
             for student in students:
