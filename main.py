@@ -10,17 +10,13 @@ from page7 import app as page7_app
 from page7_2 import app as page7_2_app
 from page7_3 import app as page7_3_app
 from page7_4 import app as page7_4_app
-from page8 import app as page8_app
 from page8_2 import app as page8_2_app
 from page8_3 import app as page8_3_app
 from page8_4 import app as page8_4_app
-from page9 import app as page9_app
 from page9_2 import app as page9_2_app
 from page9_3 import app as page9_3_app
 from page10 import app as page10_app
 from page10_2 import app as page10_2_app
-from page10_3 import app as page10_3_app
-from page11 import app as page11_app
 from page11_2 import app as page11_2_app
 from page11_3 import app as page11_3_app
 from page12 import app as page12_app
