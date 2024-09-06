@@ -38,9 +38,6 @@ def app():
     # Initialize the database
     db_utils.init_db()
 
-    # Define the names directly in a dictionary
-    # df = pd.read_excel(r'/Users/hyungju/Documents/Coding/Langchain/2024-2025 연락처.xlsx',sheet_name='Small Group_스몰그룹')
-
     names_dict = {
         "7학년 여자": ["유안나","김하린","강민아","박수현","고혜나","배유빈","서주하","김라엘"]
     }
