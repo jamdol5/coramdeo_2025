@@ -5,7 +5,6 @@ import streamlit as st
 import time
 # import ollama
 from page6 import app as page6_app
-from page6_2 import app as page6_2_app
 from page6_3 import app as page6_3_app
 from page7 import app as page7_app
 from page7_2 import app as page7_2_app
@@ -62,7 +61,6 @@ def check_password():
 
 PAGES = {
     "시은쌤": page6_app,
-    "예은쌤": page6_2_app,
     "병규쌤/배니쌤": page6_3_app,
     "영민쌤": page7_app,
     "수진쌤": page7_2_app,
