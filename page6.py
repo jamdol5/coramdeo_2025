@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import date, datetime, timedelta
 from dateutil.relativedelta import relativedelta
-import db_utils  # Import the db_utils module
+from db_utils import save_attendance_to_db, get_attendance_summary  # Import specific functions
 
 def app():
     custom_css = """
@@ -35,8 +35,8 @@ def app():
     
     st.markdown(custom_css, unsafe_allow_html=True)
 
-     # Initialize the database
-    db_utils.init_db()
+    # Get the database connection from session state
+    conn = st.session_state.db_connection
 
     names_dict = {
         "6학년 여자": ["강재인","김예나","김윤","김하늘","박서연","손효진","이다인"
@@ -57,9 +57,18 @@ def app():
             for student in students:
                 at[grade][student["label"]] = st.checkbox(student["label"], key=student["label"],value=True)
     
-
-     # Button to save attendance data
+    # Button to save attendance data
     if st.button("Save Attendance"):
         date = datetime.now().strftime('%Y-%m-%d')
-        db_utils.save_attendance_to_db(at, date)
+        save_attendance_to_db(conn, at, date)
         st.success("Attendance data saved successfully!")
+
+    # Display attendance summary
+    st.subheader("Attendance Summary")
+    summary_date = st.date_input("Select date for summary", datetime.now())
+    summary = get_attendance_summary(conn, summary_date.strftime('%Y-%m-%d'))
+    if summary:
+        summary_df = pd.DataFrame(summary, columns=['Grade', 'Total Students', 'Attended'])
+        st.table(summary_df)
+    else:
+        st.write("No attendance data for the selected date.")
