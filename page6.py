@@ -62,13 +62,3 @@ def app():
         date = datetime.now().strftime('%Y-%m-%d')
         save_attendance_to_db(conn, at, date)
         st.success("Attendance data saved successfully!")
-
-    # Display attendance summary
-    st.subheader("Attendance Summary")
-    summary_date = st.date_input("Select date for summary", datetime.now())
-    summary = get_attendance_summary(conn, summary_date.strftime('%Y-%m-%d'))
-    if summary:
-        summary_df = pd.DataFrame(summary, columns=['Grade', 'Total Students', 'Attended'])
-        st.table(summary_df)
-    else:
-        st.write("No attendance data for the selected date.")
