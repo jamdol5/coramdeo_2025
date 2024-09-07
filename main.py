@@ -3,7 +3,7 @@
 
 import streamlit as st
 import time
-# import ollama
+from db_utils import get_db_connection
 from page6 import app as page6_app
 from page6_3 import app as page6_3_app
 from page7 import app as page7_app
