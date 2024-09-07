@@ -1,5 +1,13 @@
 import sqlite3
 from datetime import datetime
+import os
+
+DB_PATH = 'attendance.db'
+
+def get_db_connection():
+    conn = sqlite3.connect(DB_PATH)
+    init_db(conn)
+    return conn
 
 def init_db():
     conn = sqlite3.connect('attendance.db')
@@ -32,7 +40,7 @@ def init_db():
     conn.commit()
     conn.close()
 
-def save_attendance_to_db(attendance, date):
+def save_attendance_to_db(conn,attendance, date):
     conn = sqlite3.connect('attendance.db')
     c = conn.cursor()
     for grade, students in attendance.items():
@@ -60,7 +68,7 @@ def save_attendance_to_db(attendance, date):
     conn.commit()
     conn.close()
     
-def get_attendance_summary(date):
+def get_attendance_summary(conn,date):
     conn = sqlite3.connect('attendance.db')
     c = conn.cursor()
     c.execute('''
