@@ -52,8 +52,7 @@ def check_password():
         st.error("😕 User not known or password incorrect")
         return False
     else:
-        # Password correct, show menu selector.
-        selection = st.sidebar.radio("메뉴 선택", list(PAGES.keys()))
+        # Password correct
         return True
 
 PAGES = {
@@ -82,11 +81,15 @@ def main():
     st.sidebar.title('코람데오 선생님들의 공간')
     
     if check_password():
-        selection = st.sidebar.radio("Go to", list(PAGES.keys()))
+        # Initialize database connection
+        if 'db_connection' not in st.session_state:
+            st.session_state.db_connection = get_db_connection()
+        
+        selection = st.sidebar.radio("메뉴 선택", list(PAGES.keys()))
         page_function = PAGES[selection]
         page_function()
     else:
-        st.stop()  # Don't run anything past here if check_password() returns False
+        st.stop()
 
 if __name__ == "__main__":
     main()
