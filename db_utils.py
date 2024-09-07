@@ -9,8 +9,7 @@ def get_db_connection():
     init_db(conn)
     return conn
 
-def init_db():
-    conn = sqlite3.connect('attendance.db')
+def init_db(conn):
     c = conn.cursor()
     c.execute('''
         CREATE TABLE IF NOT EXISTS attendance (
@@ -25,7 +24,6 @@ def init_db():
             UNIQUE(date, grade, student_name)
         )
     ''')
-      # Add contact_date column if it doesn't exist
     # Add missing columns if they don't exist
     try:
         c.execute('ALTER TABLE attendance ADD COLUMN contact_date TEXT')
@@ -38,10 +36,8 @@ def init_db():
         pass  # Column already exists
 
     conn.commit()
-    conn.close()
 
-def save_attendance_to_db(conn,attendance, date):
-    conn = sqlite3.connect('attendance.db')
+def save_attendance_to_db(conn, attendance, date):
     c = conn.cursor()
     for grade, students in attendance.items():
         for student, attended in students.items():
@@ -66,10 +62,8 @@ def save_attendance_to_db(conn,attendance, date):
                     INSERT INTO attendance (date, grade, student_name, attended, update_count) VALUES (?, ?, ?, ?, 0)
                 ''', (date, grade, student, int(attended)))
     conn.commit()
-    conn.close()
-    
-def get_attendance_summary(conn,date):
-    conn = sqlite3.connect('attendance.db')
+
+def get_attendance_summary(conn, date):
     c = conn.cursor()
     c.execute('''
         SELECT grade, COUNT(student_name) as total, SUM(attended) as attended
@@ -78,11 +72,9 @@ def get_attendance_summary(conn,date):
         GROUP BY grade
     ''', (date,))
     summary = c.fetchall()
-    conn.close()
     return summary
 
-def get_non_attendees(date):
-    conn = sqlite3.connect('attendance.db')
+def get_non_attendees(conn, date):
     c = conn.cursor()
     c.execute('''
         SELECT grade, student_name
@@ -90,11 +82,9 @@ def get_non_attendees(date):
         WHERE date = ? AND attended = 0
     ''', (date,))
     non_attendees = c.fetchall()
-    conn.close()
     return non_attendees
 
-def remove_duplicates():
-    conn = sqlite3.connect('attendance.db')
+def remove_duplicates(conn):
     c = conn.cursor()
     c.execute('''
         DELETE FROM attendance
@@ -105,11 +95,9 @@ def remove_duplicates():
         )
     ''')
     conn.commit()
-    conn.close()
 
-def update_contact_status(student_name, contacted):
+def update_contact_status(conn, student_name, contacted):
     contact_date = datetime.now().strftime('%Y-%m-%d') if contacted == 1 else None
-    conn = sqlite3.connect('attendance.db')
     c = conn.cursor()
     c.execute('''
         UPDATE attendance
@@ -117,10 +105,8 @@ def update_contact_status(student_name, contacted):
         WHERE student_name = ?
     ''', (contacted, contact_date, student_name))
     conn.commit()
-    conn.close()
 
-def get_contacted_students():
-    conn = sqlite3.connect('attendance.db')
+def get_contacted_students(conn):
     c = conn.cursor()
     c.execute('''
         SELECT DISTINCT student_name, contact_date
@@ -128,5 +114,4 @@ def get_contacted_students():
         WHERE contacted = 1
     ''')
     contacted_students = c.fetchall()
-    conn.close()
     return contacted_students
