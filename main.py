@@ -52,7 +52,8 @@ def check_password():
         st.error("😕 User not known or password incorrect")
         return False
     else:
-        # Password correct.
+        # Password correct, show menu selector.
+        selection = st.sidebar.radio("메뉴 선택", list(PAGES.keys()))
         return True
 
 PAGES = {
