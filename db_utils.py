@@ -1,6 +1,7 @@
 import sqlite3
 from datetime import datetime
 import os
+from pytz import timezone
 
 DB_PATH = 'attendance.db'
 
@@ -112,6 +113,27 @@ def get_contacted_students(conn):
         SELECT DISTINCT student_name, contact_date
         FROM attendance
         WHERE contacted = 1
+    ''')
+    contacted_students = c.fetchall()
+    return contacted_students
+
+def update_contact_status(conn, student_name, contacted, contact_datetime):
+    contact_date = contact_datetime.strftime('%Y-%m-%d %H:%M:%S') if contacted == 1 else None
+    c = conn.cursor()
+    c.execute('''
+        UPDATE attendance
+        SET contacted = ?, contact_date = ?
+        WHERE student_name = ?
+    ''', (contacted, contact_date, student_name))
+    conn.commit()
+
+def get_contacted_students(conn):
+    c = conn.cursor()
+    c.execute('''
+        SELECT DISTINCT student_name, MAX(contact_date)
+        FROM attendance
+        WHERE contacted = 1
+        GROUP BY student_name
     ''')
     contacted_students = c.fetchall()
     return contacted_students
