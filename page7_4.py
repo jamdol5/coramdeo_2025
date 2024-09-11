@@ -57,8 +57,14 @@ def app():
             for student in students:
                 at[grade][student["label"]] = st.checkbox(student["label"], key=student["label"],value=True)
     
-    # Button to save attendance data
+     # Button to save attendance data
     if st.button("Save Attendance"):
-        date = datetime.now().strftime('%Y-%m-%d')
+        # Get the current date and time in PST
+        from datetime import datetime
+        from pytz import timezone
+
+        pst = timezone('US/Pacific')
+        date = datetime.now(pst).strftime('%Y-%m-%d')
+        
         save_attendance_to_db(conn, at, date)
-        st.success("Attendance data saved successfully!")
+        st.success(f"Attendance data saved successfully for {date} (PST)!")    
