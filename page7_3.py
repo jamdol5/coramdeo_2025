@@ -40,7 +40,7 @@ def app():
 
     # Define the names directly in a dictionary
     names_dict = {
-        "7학년 남자": ["김효준","권지혁","박찬민","성준수","오찬주","이노아","정한솔"]
+        "7학년 남자": ["김효준","김강연","권지혁","박찬민","성준수","오찬주","이노아","정한솔"]
     }
 
     # Create the Roster dictionary dynamically
