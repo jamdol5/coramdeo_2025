@@ -39,9 +39,9 @@ def app():
     conn = st.session_state.db_connection
 
     names_dict = {
-        "6학년 여자": ["강재인","김예나","김윤","김하늘","박서연","손효진","이지안","이다인","전지안","최주아","한유라"]
+        "6학년 여자": ["강재인","강이주","김예나","김윤","김하늘","박서연","손효진","유시원","이지안","이다인","전지안","최주아","한유라"]
     }
-
+    
     # Create the Roster dictionary dynamically
     Roster = {grade: [{"label": name, "default":False} for name in names] for grade, names in names_dict.items()}
 
