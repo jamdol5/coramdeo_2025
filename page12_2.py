@@ -40,9 +40,9 @@ def app():
 
     # Define the names directly in a dictionary
     names_dict = {
-        "12학년 남자": ["이준서","이정우","윤태영","황준영"]
+        "12학년 남자": ["김서진","이준서","이정우","윤태영","황준영"]
     }
-
+    
     # Create the Roster dictionary dynamically
     Roster = {grade: [{"label": name, "default":False} for name in names] for grade, names in names_dict.items()}
 
