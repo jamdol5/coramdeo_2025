@@ -13,6 +13,7 @@ from page7_4 import app as page7_4_app
 from page8_2 import app as page8_2_app
 from page8_3 import app as page8_3_app
 from page8_4 import app as page8_4_app
+from page9_1 import app as page9_1_app
 from page9_2 import app as page9_2_app
 from page9_3 import app as page9_3_app
 from page10 import app as page10_app
@@ -66,7 +67,8 @@ PAGES = {
     "예은쌤": page8_4_app,
     "재원쌤/태림쌤": page8_2_app,
     "수진쌤": page9_3_app,
-    "병규쌤/우진쌤": page9_2_app,
+    "병규쌤": page9_1_app,
+    "우진쌤": page9_2_app,
     "진희쌤": page10_app,
     "태욱쌤/형준쌤": page10_2_app,
     "주연쌤": page11_3_app,
